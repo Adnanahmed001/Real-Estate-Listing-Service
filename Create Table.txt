@@ -1,0 +1,64 @@
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY AUTO_INCREMENT,
+    Username VARCHAR(50) NOT NULL,
+    PasswordHash VARCHAR(255) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    PhoneNumber VARCHAR(15),
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE PropertyTypes (
+    PropertyTypeID INT PRIMARY KEY AUTO_INCREMENT,
+    TypeName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE PropertyStatuses (
+    PropertyStatusID INT PRIMARY KEY AUTO_INCREMENT,
+    StatusName VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Locations (
+    LocationID INT PRIMARY KEY AUTO_INCREMENT,
+    City VARCHAR(100) NOT NULL,
+    State VARCHAR(100) NOT NULL,
+    Country VARCHAR(100) NOT NULL,
+    ZipCode VARCHAR(10)
+);
+
+CREATE TABLE Locations (
+    LocationID INT PRIMARY KEY AUTO_INCREMENT,
+    City VARCHAR(100) NOT NULL,
+    State VARCHAR(100) NOT NULL,
+    Country VARCHAR(100) NOT NULL,
+    ZipCode VARCHAR(10)
+);
+
+CREATE TABLE Properties (
+    PropertyID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    PropertyTypeID INT,
+    PropertyStatusID INT,
+    LocationID INT,
+    Title VARCHAR(100),
+    Description TEXT,
+    Price DECIMAL(15, 2),
+    Bedrooms INT,
+    Bathrooms INT,
+    SquareFeet INT,
+    ListedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (PropertyTypeID) REFERENCES PropertyTypes(PropertyTypeID),
+    FOREIGN KEY (PropertyStatusID) REFERENCES PropertyStatuses(PropertyStatusID),
+    FOREIGN KEY (LocationID) REFERENCES Locations(LocationID)
+);
+CREATE TABLE Amenities (
+    AmenityID INT PRIMARY KEY AUTO_INCREMENT,
+    AmenityName VARCHAR(50) NOT NULL
+);
+CREATE TABLE PropertyAmenities (
+    PropertyAmenityID INT PRIMARY KEY AUTO_INCREMENT,
+    PropertyID INT,
+    AmenityID INT,
+    FOREIGN KEY (PropertyID) REFERENCES Properties(PropertyID),
+    FOREIGN KEY (AmenityID) REFERENCES Amenities(AmenityID)
+);
